@@ -14,7 +14,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 
 
 
-// Gebruikersdata opslaan & ophalen via localStorage
+// Gebruikersdata opslaan & ophalen via localStorage, deze is temporary en ga ik verwijderen nadat Bram de PHP vanuit thuis opzet.
 function getUsers() {
   return JSON.parse(localStorage.getItem("users")) || [];
 }
