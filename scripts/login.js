@@ -98,5 +98,6 @@ if (loginForm) {
 
     alert(`Welkom terug, ${found.fullname}!`);
     loginForm.reset();
+      window.location.href = "index.html";
   });
 }

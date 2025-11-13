@@ -49,7 +49,7 @@ if (registerForm) {
     saveUsers(users);
 
     alert("Account succesvol aangemaakt! Je kunt nu inloggen.");
-    window.location.href = "index.html";
+    window.location.href = "login.html";
   });
 }
 
