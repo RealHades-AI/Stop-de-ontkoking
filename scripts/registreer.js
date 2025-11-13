@@ -1,19 +1,3 @@
-document.getElementById("loginForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const user = document.getElementById("username").value.trim();
-  const pass = document.getElementById("password").value.trim();
-
-  if (user && pass) {
-    alert("Welkom, " + user + "! Je bent succesvol ingelogd.");
-  } else {
-    alert("Vul alle velden in.");
-  }
-});
-
-
-
-
 // Gebruikersdata opslaan & ophalen via localStorage
 function getUsers() {
   return JSON.parse(localStorage.getItem("users")) || [];
