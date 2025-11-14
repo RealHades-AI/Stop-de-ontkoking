@@ -11,9 +11,6 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   }
 });
 
-
-
-
 // Gebruikersdata opslaan & ophalen via localStorage, deze is temporary en ga ik verwijderen nadat Bram de PHP vanuit thuis opzet.
 function getUsers() {
   return JSON.parse(localStorage.getItem("users")) || [];
@@ -56,7 +53,7 @@ if (registerForm) {
     }
 
     const users = getUsers();
-    if (users.find(u => u.username === user)) {
+    if (users.find((u) => u.username === user)) {
       error.textContent = "Gebruikersnaam bestaat al.";
       return;
     }
@@ -65,7 +62,7 @@ if (registerForm) {
     saveUsers(users);
 
     alert("Account succesvol aangemaakt! Je kunt nu inloggen.");
-    window.location.href = "index.html";
+    window.location.href = "../paginas/index.html";
   });
 }
 
@@ -87,7 +84,7 @@ if (loginForm) {
     }
 
     const users = getUsers();
-    const found = users.find(u => u.username === user && u.password === pass);
+    const found = users.find((u) => u.username === user && u.password === pass);
 
     if (!found) {
       error.textContent = "Ongeldige gebruikersnaam of wachtwoord.";
@@ -98,6 +95,6 @@ if (loginForm) {
 
     alert(`Welkom terug, ${found.fullname}!`);
     loginForm.reset();
-      window.location.href = "index.html";
+    window.location.href = "../paginas/index.html";
   });
 }
