@@ -16,8 +16,8 @@
  * (e.g. recipes have ON DELETE CASCADE in the provided migrations). Ensure this is desired.
  */
 
-require_once __DIR__ . '/config.php';
-require_once __DIR__ . '/app_helpers.php';
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../app_helpers.php';
 
 try {
     $input = get_input();

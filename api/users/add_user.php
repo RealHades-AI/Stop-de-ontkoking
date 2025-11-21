@@ -11,8 +11,8 @@
  *   php src/add_user.php --username=alice --email=a@x.com --password=secretpass [--role=user]
  */
 
-require_once __DIR__ . '/config.php';
-require_once __DIR__ . '/app_helpers.php';
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../app_helpers.php';
 
 function validate_add_input(array $in): array
 {

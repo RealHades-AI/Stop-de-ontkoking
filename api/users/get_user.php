@@ -18,8 +18,8 @@
  *   php src/get_user.php --list --per_page=50 --page=1
  */
 
-require_once __DIR__ . '/config.php';
-require_once __DIR__ . '/app_helpers.php';
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../app_helpers.php';
 
 try {
     $input = get_input();

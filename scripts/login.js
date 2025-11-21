@@ -1,15 +1,5 @@
-document.getElementById("loginForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+// Login logic moved to bottom of file
 
-  const user = document.getElementById("username").value.trim();
-  const pass = document.getElementById("password").value.trim();
-
-  if (user && pass) {
-    alert("Welkom, " + user + "! Je bent succesvol ingelogd.");
-  } else {
-    alert("Vul alle velden in.");
-  }
-});
 
 // Gebruikersdata opslaan & ophalen via localStorage, deze is temporary en ga ik verwijderen nadat Bram de PHP vanuit thuis opzet.
 function getUsers() {
@@ -52,20 +42,39 @@ if (registerForm) {
       return;
     }
 
-    const users = getUsers();
-    if (users.find((u) => u.username === user)) {
-      error.textContent = "Gebruikersnaam bestaat al.";
-      return;
-    }
-
-    users.push({ fullname: name, email, username: user, password: pass });
-    saveUsers(users);
-
-    alert("Account succesvol aangemaakt! Je kunt nu inloggen.");
-    window.location.href = "../paginas/index.html";
+    fetch('../api/users/add_user.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username: user, email: email, password: pass, role: 'user' })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.username) { // add_user.php returns the created user object on success (or check status code)
+         alert("Account succesvol aangemaakt! Je kunt nu inloggen.");
+         window.location.href = "../paginas/index.html";
+      } else if (data.errors) {
+         // Handle errors object
+         let msg = "Fout bij registreren:\n";
+         for (const key in data.errors) {
+             msg += `- ${data.errors[key]}\n`;
+         }
+         error.textContent = msg;
+      } else {
+         // Fallback
+         alert("Account succesvol aangemaakt! Je kunt nu inloggen.");
+         window.location.href = "../paginas/index.html";
+      }
+    })
+    .catch(err => {
+      console.error('Error:', err);
+      error.textContent = "Er is een fout opgetreden bij het registreren.";
+    });
   });
 }
 
+// ...existing code...
 // -------------------- LOGIN --------------------
 const loginForm = document.getElementById("loginForm");
 if (loginForm) {
@@ -83,18 +92,27 @@ if (loginForm) {
       return;
     }
 
-    const users = getUsers();
-    const found = users.find((u) => u.username === user && u.password === pass);
-
-    if (!found) {
-      error.textContent = "Ongeldige gebruikersnaam of wachtwoord.";
-      document.getElementById("username").classList.add("invalid");
-      document.getElementById("password").classList.add("invalid");
-      return;
-    }
-
-    alert(`Welkom terug, ${found.fullname}!`);
-    loginForm.reset();
-    window.location.href = "../paginas/index.html";
+    fetch('../php/login.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username: user, password: pass })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert(data.message);
+        window.location.href = data.redirect || "../paginas/index.html";
+      } else {
+        error.textContent = data.message;
+        document.getElementById("username").classList.add("invalid");
+        document.getElementById("password").classList.add("invalid");
+      }
+    })
+    .catch(err => {
+      console.error('Error:', err);
+      error.textContent = "Er is een fout opgetreden. Probeer het later opnieuw.";
+    });
   });
 }
