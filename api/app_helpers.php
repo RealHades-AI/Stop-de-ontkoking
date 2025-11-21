@@ -47,17 +47,52 @@ function get_input(): array
     if ($method === 'GET') {
         return $_GET;
     }
-
-    if ($method === 'POST') {
-        $raw = file_get_contents('php://input');
-        $json = json_decode($raw, true);
-        if (!is_array($json)) {
-            respond(['error' => 'Invalid JSON body'], 400);
-        }
-        return $json;
+    
+    // For POST/PUT/DELETE, try JSON body first
+    $input = json_decode(file_get_contents('php://input'), true);
+    if (json_last_error() === JSON_ERROR_NONE) {
+        return $input;
     }
+    
+    // Fallback to standard POST
+    return $_POST;
+}
 
-    respond(['error' => 'Unsupported HTTP method'], 405);
+function start_session_if_needed() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+}
+
+function is_logged_in(): bool {
+    start_session_if_needed();
+    return isset($_SESSION['user_id']);
+}
+
+function require_login() {
+    if (!is_logged_in()) {
+        if (is_cli()) {
+            echo "Error: Login required.\n";
+            exit(1);
+        }
+        
+        // Check if it's an API request (JSON expected)
+        $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
+        if (strpos($contentType, 'application/json') !== false) {
+             respond(['error' => 'Unauthorized', 'message' => 'Je moet ingelogd zijn.'], 401);
+        }
+
+        // Otherwise redirect to login page
+        // Adjust path as needed based on where this is called from. 
+        // Assuming this is usually called from php/ or api/ folders.
+        header('Location: /paginas/login.html'); 
+        exit;
+    }
+}
+
+function get_current_user_id() {
+    start_session_if_needed();
+    return $_SESSION['user_id'] ?? null;
 }
 
 function validate_identifier(array $in): array
