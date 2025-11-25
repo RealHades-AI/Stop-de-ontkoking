@@ -10,14 +10,16 @@
       href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600&family=Poppins:wght@600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="/css-pagina-specific/home.css" />
   </head>
   <body>
     <div class="page">
       <header class="top-bar">
         <div class="container">
           <div class="brand">
-            <a class="logo" href="#">Stop de Ontkoking</a>
+            <a class="logo" href="#">
+              <img src="/images/ontkoking logo.png" alt="Stop de Ontkoking Logo" class="logo-img" />
+            </a>
           </div>
           <nav class="main-nav" aria-label="Hoofd navigatie">
             <a href="#">Recepten</a>
@@ -30,7 +32,9 @@
               <span class="sr-only">Zoek recepten</span>
               <input type="search" placeholder="Zoek recepten..." />
             </label>
-            <button class="toggle-mode" type="button">Donker</button>
+            <button class="toggle-mode" type="button" aria-pressed="false">
+              Donker
+            </button>
             <a class="btn login" href="#">Login</a>
           </div>
         </div>
@@ -54,8 +58,8 @@
             </div>
             <figure class="hero-image">
               <img
-                src="https://images.unsplash.com/photo-1514516430032-7f40ed986eaa?auto=format&fit=crop&w=900&q=80"
-                alt="Hero foto van verse groenten en koken"
+                src="/images/ontkoking.png"
+                alt="Hero foto van verse gerechten"
               />
             </figure>
           </div>
@@ -71,11 +75,11 @@
               <figure class="image-wrapper">
                 <img
                   src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=600&q=80"
-                  alt="Bowl met kleurrijke poke"
+                  alt="Paella"
                 />
               </figure>
               <div class="recipe-info">
-                <h3>Poke bowl met edamame</h3>
+                <h3>Paella</h3>
                 <p>Knapperig, fris en klaar in 20 minuten.</p>
                 <a class="link" href="#">Bekijk recept</a>
               </div>
@@ -84,12 +88,12 @@
               <figure class="image-wrapper">
                 <img
                   src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80"
-                  alt="Groene smoothie met tropisch fruit"
+                  alt="Medium rare steak"
                 />
               </figure>
               <div class="recipe-info">
-                <h3>Krachtige green smoothie</h3>
-                <p>Boost je ochtend met munt, spinazie en mango.</p>
+                <h3>Medium rare steak</h3>
+                <p>De perfecte medium rare steak.</p>
                 <a class="link" href="#">Bekijk recept</a>
               </div>
             </article>
@@ -97,12 +101,12 @@
               <figure class="image-wrapper">
                 <img
                   src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=600&q=80"
-                  alt="Verse wraps met groenten"
+                  alt="orange chicken"
                 />
               </figure>
               <div class="recipe-info">
-                <h3>Wrap fiesta</h3>
-                <p>Een gezellige maaltijd om samen te maken.</p>
+                <h3>Orange chicken</h3>
+                <p>Oranje glazuurde kip met brocoli.</p>
                 <a class="link" href="#">Bekijk recept</a>
               </div>
             </article>
@@ -157,6 +161,66 @@
         </div>
       </footer>
     </div>
+    <script>
+      (function () {
+        const storageKey = "sdo-theme";
+        const toggle = document.querySelector(".toggle-mode");
+        if (!toggle) return;
+
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+        const safeStorage = (function () {
+          try {
+            const testKey = "__sdo_storage_test__";
+            window.localStorage.setItem(testKey, testKey);
+            window.localStorage.removeItem(testKey);
+            return window.localStorage;
+          } catch (error) {
+            return null;
+          }
+        })();
+
+        const getStoredTheme = () =>
+          safeStorage ? safeStorage.getItem(storageKey) : null;
+
+        const setStoredTheme = (theme) => {
+          if (!safeStorage) return;
+          safeStorage.setItem(storageKey, theme);
+        };
+
+        const applyTheme = (theme) => {
+          const isDark = theme === "dark";
+          document.body.classList.toggle("dark-mode", isDark);
+          toggle.textContent = isDark ? "Licht" : "Donker";
+          toggle.setAttribute("aria-pressed", String(isDark));
+        };
+
+        const initialTheme = (() => {
+          const stored = getStoredTheme();
+          if (stored === "dark" || stored === "light") {
+            return stored;
+          }
+          return prefersDark.matches ? "dark" : "light";
+        })();
+
+        applyTheme(initialTheme);
+
+        toggle.addEventListener("click", () => {
+          const nextTheme = document.body.classList.contains("dark-mode")
+            ? "light"
+            : "dark";
+          applyTheme(nextTheme);
+          setStoredTheme(nextTheme);
+        });
+
+        prefersDark.addEventListener("change", (event) => {
+          const stored = getStoredTheme();
+          if (!stored) {
+            applyTheme(event.matches ? "dark" : "light");
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
 
