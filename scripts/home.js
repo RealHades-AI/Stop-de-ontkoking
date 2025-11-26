@@ -58,4 +58,35 @@
   });
 })();
 
+// Newsletter form submission
+(function () {
+  const newsletterForm = document.getElementById("newsletterForm");
+  const newsletterMessage = document.getElementById("newsletterMessage");
+  
+  if (!newsletterForm || !newsletterMessage) return;
+
+  newsletterForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    
+    const emailInput = document.getElementById("email");
+    const email = emailInput.value.trim();
+    
+    if (email) {
+      // Show success message
+      newsletterMessage.textContent = "Bedankt! Je aanmelding is gelukt.";
+      newsletterMessage.style.display = "block";
+      newsletterMessage.style.color = "#3c8d4a";
+      newsletterMessage.style.marginTop = "1rem";
+      newsletterMessage.style.fontWeight = "600";
+      
+      // Clear the input
+      emailInput.value = "";
+      
+      // Hide message after 5 seconds
+      setTimeout(() => {
+        newsletterMessage.style.display = "none";
+      }, 5000);
+    }
+  });
+})();
 

@@ -17,12 +17,12 @@
       <header class="top-bar">
         <div class="container">
           <div class="brand">
-            <a class="logo" href="#">
+            <a class="logo" href="home.html">
               <img src="/images/ontkoking logo.png" alt="Stop de Ontkoking Logo" class="logo-img" />
             </a>
           </div>
           <nav class="main-nav" aria-label="Hoofd navigatie">
-            <a href="#">Recepten</a>
+            <a href="/php/recepten_bekijken.php">Recepten</a>
             <a href="#">Categorieën</a>
             <a href="#">Over ons</a>
             <a href="#">Contact</a>
@@ -35,7 +35,7 @@
             <button class="toggle-mode" type="button" aria-pressed="false">
               Donker
             </button>
-            <a class="btn login" href="#">Login</a>
+            <a class="btn login" href="/php/login.php">Login</a>
           </div>
         </div>
       </header>
@@ -51,10 +51,6 @@
                 levensstijl. Leer nieuwe technieken, deel je creaties en kook samen
                 met vrienden.
               </p>
-              <div class="hero-cta">
-                <a class="btn primary" href="#">Bekijk recepten</a>
-                <a class="btn secondary" href="#">Leer meer</a>
-              </div>
             </div>
             <figure class="hero-image">
               <img
@@ -68,7 +64,7 @@
         <section class="featured">
           <div class="container section-header">
             <h2>Uitgelichte recepten</h2>
-            <a class="view-all" href="#">Alles bekijken</a>
+            <a class="view-all" href="../php/recepten.details.php">Alles bekijken</a>
           </div>
           <div class="container recipe-grid">
             <article class="recipe-card">
@@ -81,7 +77,7 @@
               <div class="recipe-info">
                 <h3>Paella</h3>
                 <p>Knapperig, fris en klaar in 20 minuten.</p>
-                <a class="link" href="#">Bekijk recept</a>
+                <a class="link" href="../php/recepten.details.php">Bekijk recept</a>
               </div>
             </article>
             <article class="recipe-card">
@@ -94,7 +90,7 @@
               <div class="recipe-info">
                 <h3>Medium rare steak</h3>
                 <p>De perfecte medium rare steak.</p>
-                <a class="link" href="#">Bekijk recept</a>
+                <a class="link" href="../php/recepten.details.php">Bekijk recept</a>
               </div>
             </article>
             <article class="recipe-card">
@@ -107,7 +103,7 @@
               <div class="recipe-info">
                 <h3>Orange chicken</h3>
                 <p>Oranje glazuurde kip met brocoli.</p>
-                <a class="link" href="#">Bekijk recept</a>
+                <a class="link" href="../php/recepten.details.php">Bekijk recept</a>
               </div>
             </article>
           </div>
@@ -116,12 +112,11 @@
         <section class="newsletter">
           <div class="container newsletter-grid">
             <div class="brand-panel">
-              <a class="logo" href="#">Stop de Ontkoking</a>
               <p class="socials-label">Volg ons</p>
               <div class="socials">
-                <a href="#" aria-label="Instagram">IG</a>
-                <a href="#" aria-label="TikTok">TT</a>
-                <a href="#" aria-label="YouTube">YT</a>
+                <a href="https://www.instagram.com/gordongram" aria-label="Instagram">IG</a>
+                <a href="https://www.tiktok.com/@gordonramsayofficial" aria-label="TikTok">TT</a>
+                <a href="https://www.youtube.com/@gordonramsay" aria-label="YouTube">YT</a>
               </div>
             </div>
             <div class="signup-panel">
@@ -130,7 +125,7 @@
                 Ontvang wekelijks seizoensrecepten en tips om duurzaam en betaalbaar
                 te koken.
               </p>
-              <form class="signup-form">
+              <form class="signup-form" id="newsletterForm">
                 <label class="sr-only" for="email">E-mailadres</label>
                 <input
                   id="email"
@@ -140,15 +135,16 @@
                   required
                 />
                 <button class="btn primary" type="submit">Aanmelden</button>
+                <p class="newsletter-message" id="newsletterMessage" style="display: none;"></p>
               </form>
             </div>
             <div class="links-panel">
               <h3>Handige links</h3>
               <ul>
-                <li><a href="#">Kookworkshops</a></li>
-                <li><a href="#">Budget tips</a></li>
-                <li><a href="#">Seizoenskalender</a></li>
-                <li><a href="#">Partner worden</a></li>
+                <li><a href="https://rongastrobar.nl/kookstudio/kookworkshops">Kookworkshops</a></li>
+                <li><a href="https://www.voedingscentrum.nl/nl/thema/budget/geld-besparen-op-eten-beste-budgettips-koken-keuken.aspx">Budget tips</a></li>
+                <li><a href="https://velt.nu/seizoenskalender?page=2">Seizoenskalender</a></li>
+                <li><a href="https://keukenvuur.nl/samen-koken/">Partner worden</a></li>
               </ul>
             </div>
           </div>
